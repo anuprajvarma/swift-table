@@ -1,103 +1,100 @@
-import Image from "next/image";
+import { CiSearch } from "react-icons/ci";
+import { RiExpandUpDownLine } from "react-icons/ri";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="w-full h-full">
+      <div className="bg-[#282846] w-full flex justify-center py-4">
+        <div className="w-[70rem] flex justify-between">
+          <p>SWIFT</p>
+          <div className="flex gap-2">
+            <div>EH</div>
+            <p>Ervin Howwel</p>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+      <div className="w-full flex justify-center py-4">
+        <div className="w-[70rem] flex flex-col gap-4">
+          <div className="w-full flex justify-between">
+            <div className="text-[#425570] flex text-sm gap-2">
+              <button className="border cursor-pointer rounded-lg h-[2rem] px-2 border-gray-300 flex gap-1 items-center">
+                <p>Sort Post ID</p>
+                <RiExpandUpDownLine />
+              </button>
+              <button className="border cursor-pointer  rounded-lg h-[2rem] px-2 border-gray-300 flex gap-1 items-center">
+                <p>Sort Name</p>
+                <RiExpandUpDownLine />
+              </button>
+              <button className="border cursor-pointer  rounded-lg h-[2rem] px-2 border-gray-300 flex gap-1 items-center">
+                <p>Sort Email</p>
+                <RiExpandUpDownLine />
+              </button>
+            </div>
+
+            <form className="flex items-center">
+              <div className="relative w-full">
+                <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                  <CiSearch className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                </div>
+                <input
+                  type="text"
+                  id="simple-search"
+                  className="bg-gray-50 w-[20rem] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block ps-10 p-2.5  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none"
+                  placeholder="Search name, email or comment"
+                  required
+                />
+              </div>
+            </form>
+          </div>
+
+          <div className="relative overflow-x-auto shadow-md sm:rounded-lg text-[#2A3B5D]">
+            <table className="w-full text-sm text-left rtl:text-right ">
+              <thead className="uppercase bg-[#C8C8D2]">
+                <tr>
+                  <th scope="col" className="px-6 py-3">
+                    Post ID
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Name
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Email
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Comment
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="">
+                  <td className="px-6 py-4">Apple MacBook Pro 17</td>
+                  <td className="px-6 py-4">Silver</td>
+                  <td className="px-6 py-4">Laptop</td>
+                  <td className="px-6 py-4">$2999</td>
+                </tr>
+                <tr className="">
+                  <td className="px-6 py-4"> Microsoft Surface Pro</td>
+                  <td className="px-6 py-4">White</td>
+                  <td className="px-6 py-4">Laptop PC</td>
+                  <td className="px-6 py-4">$1999</td>
+                </tr>
+                <tr className="">
+                  <td className="px-6 py-4">Magic Mouse 2</td>
+                  <td className="px-6 py-4">Black</td>
+                  <td className="px-6 py-4">Accessories</td>
+                  <td className="px-6 py-4">$99</td>
+                </tr>
+                <tr className="">
+                  <td className="px-6 py-4">Google Pixel Phone</td>
+                  <td className="px-6 py-4">Gray</td>
+                  <td className="px-6 py-4">Phone</td>
+                  <td className="px-6 py-4">$799</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
