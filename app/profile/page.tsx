@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
-import Header from "../components/header";
+import Header from "../components/Header";
 
 const Page = () => {
   const [user, setUser] = useState({

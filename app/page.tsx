@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { RiExpandUpDownLine } from "react-icons/ri";
 import { MdArrowBackIos } from "react-icons/md";
-import Header from "./components/header";
+import Header from "./components/Header";
 
 interface CommentType {
   postId: number;
@@ -166,39 +166,24 @@ export default function Home() {
             )}
           </div>
 
-          {/* Pagination */}
-          <div className="flex justify-between items-center mt-2">
-            {/* Page Size */}
-            <div className="text-sm text-gray-700 flex items-center gap-2">
-              <label htmlFor="pageSize">Rows per page:</label>
-              <select
-                id="pageSize"
-                value={pageSize}
-                onChange={handlePageSizeChange}
-                className="border border-gray-300 rounded p-1"
-              >
-                <option value={10}>10</option>
-                <option value={50}>50</option>
-                <option value={100}>100</option>
-              </select>
-            </div>
-
-            {/* Numbered Pagination */}
-            <div className="flex gap-2 items-center text-sm text-[#425570]">
+          <div className="flex w-full justify-end items-center mt-2">
+            <div className="flex gap-2 w-fit items-center text-sm text-[#425570]">
+              <div className="flex gap-1">
+                <p>1-{pageSize} of </p>
+                <p>{comments.length} items</p>
+              </div>
               <button
                 onClick={() => handlePageChange(currentPage - 1)}
-                className="border border-gray-300 px-3 py-1 rounded disabled:opacity-50 cursor-pointer"
+                className="rounded disabled:opacity-50 cursor-pointer"
                 disabled={currentPage === 1}
               >
                 <MdArrowBackIos className="w-4 h-4" />
               </button>
 
-              {/* Current Page */}
-              <button className="border border-gray-500 px-3 py-1 rounded">
+              <button className="border border-gray-500 px-3 py-1 text-sm rounded">
                 {currentPage}
               </button>
 
-              {/* Next Page if available */}
               {currentPage < totalPages && (
                 <button
                   onClick={() => handlePageChange(currentPage + 1)}
@@ -210,11 +195,23 @@ export default function Home() {
 
               <button
                 onClick={() => handlePageChange(currentPage + 1)}
-                className="border border-gray-300 px-3 py-1 rounded disabled:opacity-50 cursor-pointer"
+                className="rounded disabled:opacity-50 cursor-pointer"
                 disabled={currentPage >= totalPages}
               >
                 <MdArrowBackIos className="w-4 h-4 transform rotate-y-180" />
               </button>
+              <div className="text-sm text-gray-700 flex items-center gap-2">
+                <select
+                  id="pageSize"
+                  value={pageSize}
+                  onChange={handlePageSizeChange}
+                  className="border border-gray-300 rounded p-1 text-xs text-gray-900 w-full"
+                >
+                  <option value={10}>10 / Page</option>
+                  <option value={50}>50/Page</option>
+                  <option value={100}>100/Page</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
