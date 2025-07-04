@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { RiExpandUpDownLine } from "react-icons/ri";
+import { MdArrowBackIos } from "react-icons/md";
 import Header from "./components/header";
 
 interface CommentType {
@@ -18,6 +19,8 @@ export default function Home() {
   const [sortBy, setSortBy] = useState<keyof CommentType | null>(null);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [searchQuery, setSearchQuery] = useState("");
+  const [pageSize, setPageSize] = useState<number>(10);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const handleSort = (key: keyof CommentType) => {
     const order = sortBy === key && sortOrder === "asc" ? "desc" : "asc";
@@ -35,6 +38,12 @@ export default function Home() {
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value.toLowerCase());
+    setCurrentPage(1);
+  };
+
+  const handlePageSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setPageSize(Number(e.target.value));
+    setCurrentPage(1);
   };
 
   const filteredComments = comments.filter(
@@ -43,6 +52,16 @@ export default function Home() {
       comment.email.toLowerCase().includes(searchQuery) ||
       comment.body.toLowerCase().includes(searchQuery)
   );
+
+  const totalPages = Math.ceil(filteredComments.length / pageSize);
+  const startIndex = (currentPage - 1) * pageSize;
+  const currentData = filteredComments.slice(startIndex, startIndex + pageSize);
+
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -65,7 +84,8 @@ export default function Home() {
       <Header />
       <div className="w-full flex justify-center py-4">
         <div className="w-[70rem] flex flex-col gap-4">
-          <div className="w-full flex justify-between">
+          {/* Controls */}
+          <div className="w-full flex justify-between items-center">
             <div className="text-[#425570] flex text-sm gap-2">
               <button
                 onClick={() => handleSort("postId")}
@@ -91,23 +111,23 @@ export default function Home() {
             </div>
 
             <form className="flex items-center">
-              <div className="relative w-full">
+              <div className="relative">
                 <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                   <CiSearch className="w-5 h-5 text-gray-500" />
                 </div>
                 <input
                   type="text"
-                  id="simple-search"
                   value={searchQuery}
                   onChange={handleSearch}
-                  className="bg-gray-50 w-[20rem] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block ps-10 p-2.5 outline-none"
+                  className="bg-gray-50 w-[20rem] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 ps-10 p-2.5 outline-none"
                   placeholder="Search name, email or comment"
                 />
               </div>
             </form>
           </div>
 
-          <div className="relative overflow-x-auto shadow-md sm:rounded-lg text-[#2A3B5D]">
+          {/* Table */}
+          <div className="relative shadow-md sm:rounded-lg text-[#2A3B5D]">
             <table className="w-full text-sm text-left">
               <thead className="uppercase bg-[#C8C8D2]">
                 <tr>
@@ -118,15 +138,23 @@ export default function Home() {
                 </tr>
               </thead>
               <tbody>
-                {filteredComments.map((comment) => (
+                {currentData.map((comment) => (
                   <tr
                     key={comment.id}
                     className="border-b bg-white hover:bg-gray-50"
                   >
-                    <td className="px-6 py-4">{comment.postId}</td>
-                    <td className="px-6 py-4">{comment.name}</td>
-                    <td className="px-6 py-4">{comment.email}</td>
-                    <td className="px-6 py-4">{comment.body}</td>
+                    <td className="px-6 py-4 whitespace-nowrap overflow-hidden text-ellipsis max-w-[16rem]">
+                      {comment.postId}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap overflow-hidden text-ellipsis max-w-[16rem]">
+                      {comment.name}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap overflow-hidden text-ellipsis max-w-[16rem]">
+                      {comment.email}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap overflow-hidden text-ellipsis max-w-[16rem]">
+                      {comment.body}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -136,6 +164,58 @@ export default function Home() {
                 No matching results found.
               </div>
             )}
+          </div>
+
+          {/* Pagination */}
+          <div className="flex justify-between items-center mt-2">
+            {/* Page Size */}
+            <div className="text-sm text-gray-700 flex items-center gap-2">
+              <label htmlFor="pageSize">Rows per page:</label>
+              <select
+                id="pageSize"
+                value={pageSize}
+                onChange={handlePageSizeChange}
+                className="border border-gray-300 rounded p-1"
+              >
+                <option value={10}>10</option>
+                <option value={50}>50</option>
+                <option value={100}>100</option>
+              </select>
+            </div>
+
+            {/* Numbered Pagination */}
+            <div className="flex gap-2 items-center text-sm text-[#425570]">
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                className="border border-gray-300 px-3 py-1 rounded disabled:opacity-50 cursor-pointer"
+                disabled={currentPage === 1}
+              >
+                <MdArrowBackIos className="w-4 h-4" />
+              </button>
+
+              {/* Current Page */}
+              <button className="border border-gray-500 px-3 py-1 rounded">
+                {currentPage}
+              </button>
+
+              {/* Next Page if available */}
+              {currentPage < totalPages && (
+                <button
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  className="border border-gray-300 px-3 py-1 rounded"
+                >
+                  {currentPage + 1}
+                </button>
+              )}
+
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                className="border border-gray-300 px-3 py-1 rounded disabled:opacity-50 cursor-pointer"
+                disabled={currentPage >= totalPages}
+              >
+                <MdArrowBackIos className="w-4 h-4 transform rotate-y-180" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
