@@ -41,19 +41,21 @@ const Page = () => {
       <Header />
       <div className="w-full flex justify-center py-4">
         <div className="w-[70rem] flex flex-col gap-4">
-          <button className="flex items-center gap-2 text-[#282846]">
+          <div className="flex items-center gap-2 text-[#334365] py-4 font-semibold">
             <Link href={"/"}>
               <IoMdArrowBack className="w-5 h-5" />
             </Link>
             <p>Welcome, {user.name}</p>
-          </button>
-          <div className="w-full h-[40rem] flex flex-col gap-4 p-[3rem] border border-[#282846] rounded-lg">
+          </div>
+          <div className="w-full h-[30rem] flex flex-col gap-4 p-[3rem] border-2 rounded-lg">
             <div className="flex gap-4 items-center">
-              <div className="text-[#282846] flex justify-center items-center w-[5rem] h-[5rem] rounded-full bg-[#F5F5F5] ">
-                <p className="text-xl">{user.name ? user.name[0] : "U"}</p>
+              <div className="text-[#334365] flex justify-center items-center w-[5rem] h-[5rem] rounded-full bg-[#F5F5F5] ">
+                <p className="text-xl font-semibold">
+                  {user.name ? user.name[0] : "U"}
+                </p>
               </div>
               <div className="flex flex-col">
-                <p className="text-[#282846]">{user.name}</p>
+                <p className="text-[#334365] font-semibold">{user.name}</p>
                 <p className="text-[#6F7B8F]">{user.email}</p>
               </div>
             </div>
@@ -68,7 +70,7 @@ const Page = () => {
                     type="text"
                     value={user.id}
                     readOnly
-                    className="bg-[#F5F5F5] p-2 text-[#808A9D] text-sm rounded-lg block w-full"
+                    className="bg-[#F5F5F5] px-4 py-2 text-[#808A9D] text-sm rounded-lg block w-full"
                   />
                 </div>
                 <div className="mb-5">
@@ -79,7 +81,7 @@ const Page = () => {
                     type="text"
                     value={user.email}
                     readOnly
-                    className="bg-[#F5F5F5] p-2  text-[#808A9D] text-sm rounded-lg block w-full"
+                    className="bg-[#F5F5F5] px-4 py-2  text-[#808A9D] text-sm rounded-lg block w-full"
                   />
                 </div>
                 <div>
@@ -90,7 +92,7 @@ const Page = () => {
                     type="text"
                     value={user.phone}
                     readOnly
-                    className="bg-[#F5F5F5] p-2  text-[#808A9D] text-sm rounded-lg block w-full"
+                    className="bg-[#F5F5F5] px-4 py-2  text-[#808A9D] text-sm rounded-lg block w-full"
                   />
                 </div>
               </div>
@@ -103,7 +105,7 @@ const Page = () => {
                     type="text"
                     value={user.name}
                     readOnly
-                    className="bg-[#F5F5F5] p-2  text-[#808A9D] text-sm rounded-lg block w-full"
+                    className="bg-[#F5F5F5] px-4 py-2  text-[#808A9D] text-sm rounded-lg block w-full"
                   />
                 </div>
                 <div className="mb-5">
@@ -114,7 +116,7 @@ const Page = () => {
                     type="text"
                     value={user.address}
                     readOnly
-                    className="bg-[#F5F5F5] p-2  text-[#808A9D] text-sm rounded-lg block w-full"
+                    className="bg-[#F5F5F5] px-4 py-2  text-[#808A9D] text-sm rounded-lg block w-full"
                   />
                 </div>
               </div>

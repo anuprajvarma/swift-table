@@ -85,25 +85,25 @@ export default function Home() {
       <div className="w-full flex justify-center py-4">
         <div className="w-[70rem] flex flex-col gap-4">
           {/* Controls */}
-          <div className="w-full flex justify-between items-center">
+          <div className="w-full flex justify-between items-end">
             <div className="text-[#425570] flex text-sm gap-2">
               <button
                 onClick={() => handleSort("postId")}
-                className="border cursor-pointer rounded-lg h-[2rem] px-2 border-gray-300 flex gap-1 items-center"
+                className="border cursor-pointer rounded-md h-[2rem] px-2 border-gray-300 flex gap-1 items-center"
               >
                 <p>Sort Post ID</p>
                 <RiExpandUpDownLine />
               </button>
               <button
                 onClick={() => handleSort("name")}
-                className="border cursor-pointer rounded-lg h-[2rem] px-2 border-gray-300 flex gap-1 items-center"
+                className="border cursor-pointer rounded-md h-[2rem] px-2 border-gray-300 flex gap-1 items-center"
               >
                 <p>Sort Name</p>
                 <RiExpandUpDownLine />
               </button>
               <button
                 onClick={() => handleSort("email")}
-                className="border cursor-pointer rounded-lg h-[2rem] px-2 border-gray-300 flex gap-1 items-center"
+                className="border cursor-pointer rounded-md h-[2rem] px-2 border-gray-300 flex gap-1 items-center"
               >
                 <p>Sort Email</p>
                 <RiExpandUpDownLine />
@@ -119,7 +119,7 @@ export default function Home() {
                   type="text"
                   value={searchQuery}
                   onChange={handleSearch}
-                  className="bg-gray-50 w-[20rem] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 ps-10 p-2.5 outline-none"
+                  className="bg-gray-50 w-[20rem] border border-gray-300 text-gray-900 text-sm rounded-md ps-10 p-3 outline-none"
                   placeholder="Search name, email or comment"
                 />
               </div>
@@ -127,21 +127,21 @@ export default function Home() {
           </div>
 
           {/* Table */}
-          <div className="relative shadow-md sm:rounded-lg text-[#2A3B5D]">
+          <div className="relative text-[#2A3B5D]">
             <table className="w-full text-sm text-left">
               <thead className="uppercase bg-[#C8C8D2]">
                 <tr>
-                  <th className="px-6 py-3 w-[8rem]">Post ID</th>
+                  <th className="px-6 py-3 w-[8rem] rounded-tl-md">Post ID</th>
                   <th className="px-6 py-3">Name</th>
                   <th className="px-6 py-3">Email</th>
-                  <th className="px-6 py-3">Comment</th>
+                  <th className="px-6 py-3 rounded-tr-md">Comment</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="border border-gray-300">
                 {currentData.map((comment) => (
                   <tr
                     key={comment.id}
-                    className="border-b bg-white hover:bg-gray-50"
+                    className="border-b border-gray-300 bg-white hover:bg-gray-50"
                   >
                     <td className="px-6 py-4 whitespace-nowrap overflow-hidden text-ellipsis max-w-[16rem]">
                       {comment.postId}
@@ -174,20 +174,20 @@ export default function Home() {
               </div>
               <button
                 onClick={() => handlePageChange(currentPage - 1)}
-                className="rounded disabled:opacity-50 cursor-pointer"
+                className="rounded-md disabled:opacity-50 cursor-pointer"
                 disabled={currentPage === 1}
               >
                 <MdArrowBackIos className="w-4 h-4" />
               </button>
 
-              <button className="border border-gray-500 px-3 py-1 text-sm rounded">
+              <button className="border border-gray-500 px-3 py-1 text-sm rounded-md">
                 {currentPage}
               </button>
 
               {currentPage < totalPages && (
                 <button
                   onClick={() => handlePageChange(currentPage + 1)}
-                  className="border border-gray-300 px-3 py-1 rounded"
+                  className="border border-gray-300 px-3 py-1 rounded-md"
                 >
                   {currentPage + 1}
                 </button>
@@ -195,7 +195,7 @@ export default function Home() {
 
               <button
                 onClick={() => handlePageChange(currentPage + 1)}
-                className="rounded disabled:opacity-50 cursor-pointer"
+                className="rounded-md disabled:opacity-50 cursor-pointer"
                 disabled={currentPage >= totalPages}
               >
                 <MdArrowBackIos className="w-4 h-4 transform rotate-y-180" />
@@ -205,7 +205,7 @@ export default function Home() {
                   id="pageSize"
                   value={pageSize}
                   onChange={handlePageSizeChange}
-                  className="border border-gray-300 rounded p-1 text-xs text-gray-900 w-full"
+                  className="border border-gray-300 rounded-md p-1 text-xs text-gray-900 w-full"
                 >
                   <option value={10}>10 / Page</option>
                   <option value={50}>50 / Page</option>

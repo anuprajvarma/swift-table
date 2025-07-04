@@ -39,7 +39,7 @@ const Header = () => {
         </Link>
         <Link href={"/profile"} className="flex gap-4 items-center">
           <div className="text-[#282846] flex justify-center items-center w-[2.5rem] h-[2.5rem] rounded-full bg-[#F5F5F5] ">
-            <p className="text-lg text-[#282846]">
+            <p className="text-lg text-[#282846] font-semibold">
               {user.name ? user.name[0] : "U"}
             </p>
           </div>
