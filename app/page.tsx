@@ -17,15 +17,21 @@ interface CommentType {
 export default function Home() {
   const [comments, setComments] = useState<CommentType[]>([]);
   const [sortBy, setSortBy] = useState<keyof CommentType | null>(null);
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc" | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [pageSize, setPageSize] = useState<number>(10);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [originalComments, setOriginalComments] = useState<CommentType[]>([]);
 
   const handleSort = (key: keyof CommentType) => {
+    if (sortBy === key && sortOrder === "desc") {
+      setComments(originalComments);
+      setSortBy(null);
+      setSortOrder(null);
+      return;
+    }
+
     const order = sortBy === key && sortOrder === "asc" ? "desc" : "asc";
-    setSortBy(key);
-    setSortOrder(order);
 
     const sorted = [...comments].sort((a, b) => {
       if (a[key] < b[key]) return order === "asc" ? -1 : 1;
@@ -33,6 +39,8 @@ export default function Home() {
       return 0;
     });
 
+    setSortBy(key);
+    setSortOrder(order);
     setComments(sorted);
   };
 
@@ -71,6 +79,7 @@ export default function Home() {
         );
         const data = await res.json();
         setComments(data);
+        setOriginalComments(data); // keep a backup of original list
       } catch (err) {
         console.error("Failed to fetch comments:", err);
       }
