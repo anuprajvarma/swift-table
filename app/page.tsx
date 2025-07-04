@@ -15,6 +15,34 @@ interface CommentType {
 
 export default function Home() {
   const [comments, setComments] = useState<CommentType[]>([]);
+  const [sortBy, setSortBy] = useState<keyof CommentType | null>(null);
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSort = (key: keyof CommentType) => {
+    const order = sortBy === key && sortOrder === "asc" ? "desc" : "asc";
+    setSortBy(key);
+    setSortOrder(order);
+
+    const sorted = [...comments].sort((a, b) => {
+      if (a[key] < b[key]) return order === "asc" ? -1 : 1;
+      if (a[key] > b[key]) return order === "asc" ? 1 : -1;
+      return 0;
+    });
+
+    setComments(sorted);
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value.toLowerCase());
+  };
+
+  const filteredComments = comments.filter(
+    (comment) =>
+      comment.name.toLowerCase().includes(searchQuery) ||
+      comment.email.toLowerCase().includes(searchQuery) ||
+      comment.body.toLowerCase().includes(searchQuery)
+  );
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -39,15 +67,24 @@ export default function Home() {
         <div className="w-[70rem] flex flex-col gap-4">
           <div className="w-full flex justify-between">
             <div className="text-[#425570] flex text-sm gap-2">
-              <button className="border cursor-pointer rounded-lg h-[2rem] px-2 border-gray-300 flex gap-1 items-center">
+              <button
+                onClick={() => handleSort("postId")}
+                className="border cursor-pointer rounded-lg h-[2rem] px-2 border-gray-300 flex gap-1 items-center"
+              >
                 <p>Sort Post ID</p>
                 <RiExpandUpDownLine />
               </button>
-              <button className="border cursor-pointer rounded-lg h-[2rem] px-2 border-gray-300 flex gap-1 items-center">
+              <button
+                onClick={() => handleSort("name")}
+                className="border cursor-pointer rounded-lg h-[2rem] px-2 border-gray-300 flex gap-1 items-center"
+              >
                 <p>Sort Name</p>
                 <RiExpandUpDownLine />
               </button>
-              <button className="border cursor-pointer rounded-lg h-[2rem] px-2 border-gray-300 flex gap-1 items-center">
+              <button
+                onClick={() => handleSort("email")}
+                className="border cursor-pointer rounded-lg h-[2rem] px-2 border-gray-300 flex gap-1 items-center"
+              >
                 <p>Sort Email</p>
                 <RiExpandUpDownLine />
               </button>
@@ -61,6 +98,8 @@ export default function Home() {
                 <input
                   type="text"
                   id="simple-search"
+                  value={searchQuery}
+                  onChange={handleSearch}
                   className="bg-gray-50 w-[20rem] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block ps-10 p-2.5 outline-none"
                   placeholder="Search name, email or comment"
                 />
@@ -79,7 +118,7 @@ export default function Home() {
                 </tr>
               </thead>
               <tbody>
-                {comments.map((comment) => (
+                {filteredComments.map((comment) => (
                   <tr
                     key={comment.id}
                     className="border-b bg-white hover:bg-gray-50"
@@ -92,9 +131,9 @@ export default function Home() {
                 ))}
               </tbody>
             </table>
-            {comments.length === 0 && (
+            {filteredComments.length === 0 && (
               <div className="p-4 text-gray-500 text-center">
-                Loading comments...
+                No matching results found.
               </div>
             )}
           </div>
