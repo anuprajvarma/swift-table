@@ -208,8 +208,8 @@ export default function Home() {
                   className="border border-gray-300 rounded p-1 text-xs text-gray-900 w-full"
                 >
                   <option value={10}>10 / Page</option>
-                  <option value={50}>50/Page</option>
-                  <option value={100}>100/Page</option>
+                  <option value={50}>50 / Page</option>
+                  <option value={100}>100 / Page</option>
                 </select>
               </div>
             </div>

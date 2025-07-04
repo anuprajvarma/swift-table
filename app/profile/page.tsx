@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import Header from "../components/Header";
+import Link from "next/link";
 
 const Page = () => {
   const [user, setUser] = useState({
@@ -40,8 +41,10 @@ const Page = () => {
       <Header />
       <div className="w-full flex justify-center py-4">
         <div className="w-[70rem] flex flex-col gap-4">
-          <button className="flex items-center gap-2 text-[#282846] cursor-pointer">
-            <IoMdArrowBack className="w-5 h-5" />
+          <button className="flex items-center gap-2 text-[#282846]">
+            <Link href={"/"}>
+              <IoMdArrowBack className="w-5 h-5" />
+            </Link>
             <p>Welcome, {user.name}</p>
           </button>
           <div className="w-full h-[40rem] flex flex-col gap-4 p-[3rem] border border-[#282846] rounded-lg">
