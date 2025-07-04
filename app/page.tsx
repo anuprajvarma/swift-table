@@ -1,18 +1,11 @@
 import { CiSearch } from "react-icons/ci";
 import { RiExpandUpDownLine } from "react-icons/ri";
+import Header from "./components/header";
 
 export default function Home() {
   return (
     <div className="w-full h-full">
-      <div className="bg-[#282846] w-full flex justify-center py-4">
-        <div className="w-[70rem] flex justify-between">
-          <p>SWIFT</p>
-          <div className="flex gap-2">
-            <div>EH</div>
-            <p>Ervin Howwel</p>
-          </div>
-        </div>
-      </div>
+      <Header />
       <div className="w-full flex justify-center py-4">
         <div className="w-[70rem] flex flex-col gap-4">
           <div className="w-full flex justify-between">
